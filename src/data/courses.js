@@ -9,9 +9,10 @@ export const courses = [
         level: "Beginner",
         description: "In this comprehensive module, we cover the core concepts of market structure, identifying break of structure (BOS), and change of character (CHoCH). This is the foundation of our trading strategy. ",
         materials: [
-            { id: 1, title: "Introduction", url: "/materials/introduction.pdf" },
-            { id: 2, title: "How Much Can You Earn from Trading", url: "/materials/How Much Can You Earn from Trading.pdf" },
-            { id: 3, title: "Course Design", url: "/materials/Course Design.pdf" }
+            { id: 1, title: "Introduction", url: "https://drive.google.com/file/d/1MIoZMEYSdAa68cFpgRdUSMaYAqt0C0wN/preview" },
+            { id: 2, title: "How Much Can You Earn from Trading", url: "https://drive.google.com/file/d/17qCAOOfV7NCzuUjJ5t0WaktX5reTwhCs/preview" },
+            { id: 3, title: "Course Design", url: "https://drive.google.com/file/d/1lv7Vr8WpfXUhBp4AFY_Lnrr_sdbRmT7s/preview" },
+            { id: 4, title: "SMC ABBREVIATION", url: "https://drive.google.com/file/d/19AjQfcQW8BkN6QJlFUglML2fHXM_3bkm/view?usp=drive_link" }
         ],
         playlist: [
             { id: 1, title: "Introduction to Forex", duration: "10:05", videoId: "5iEHsRja8u0" },

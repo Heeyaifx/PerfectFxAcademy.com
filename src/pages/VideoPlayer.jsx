@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Pause, SkipBack, SkipForward, Volume2, Maximize, Minimize, ChevronLeft, Download, FileText, CheckCircle, VolumeX, Settings, Subtitles, X, EyeOff } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { courses } from '../data/courses';
+import PDFViewer from '../components/PDFViewer';
 
 const PrivacyCurtain = () => {
   const [isFocused, setIsFocused] = useState(document.hasFocus());
@@ -94,7 +95,7 @@ export default function VideoPlayer() {
   const [qualityLevel, setQualityLevel] = useState('default');
   const controlsTimeoutRef = useRef(null);
   const playerContainerRef = useRef(null);
-  const iframeRef = useRef(null);
+
 
   // ... useEffects ...
 
@@ -532,52 +533,16 @@ export default function VideoPlayer() {
         </div>
       </div>
 
+
       <AnimatePresence>
         {activePdf && (
-          <div
-            className="pdf-modal-overlay"
-            onClick={() => setActivePdf(null)}
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="pdf-modal"
-              onClick={e => e.stopPropagation()}
-            >
-              <div className="pdf-header">
-                <h3>{activePdf.title}</h3>
-                <button onClick={() => setActivePdf(null)} className="close-pdf-btn">
-                  <X size={24} />
-                </button>
-              </div>
-              <div className="pdf-container">
-                <div className="pdf-iframe-wrapper">
-                  {/* The Shield: Blocks Right Click / Save As directly on the PDF area */}
-                  <div
-                    className="pdf-shield"
-                    onContextMenu={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                    }}
-                  ></div>
-                  <iframe
-                    ref={iframeRef}
-                    src={`${activePdf.url}#toolbar=0&navpanes=0&view=FitH&scrollbar=0&page=1`}
-                    className="pdf-iframe"
-                    title={activePdf.title}
-                  />
-                </div>
-              </div>
-              <div className="pdf-footer">
-                <p className="text-xs text-muted text-center italic">
-                  Digital Copy Protected. For internal viewing only.
-                </p>
-              </div>
-            </motion.div>
-          </div>
+          <PDFViewer
+            pdf={activePdf}
+            onClose={() => setActivePdf(null)}
+          />
         )}
       </AnimatePresence>
+
 
       <style jsx="true">{`
         .video-page { min-height: 100vh; background: var(--bg-dark); }
@@ -877,6 +842,11 @@ export default function VideoPlayer() {
           background: rgba(212, 175, 55, 0.05);
         }
         .pdf-header h3 { color: var(--primary); margin: 0; font-size: 1.1rem; }
+        .pdf-header-controls {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
         .close-pdf-btn { 
           background: none; 
           border: none; 
@@ -884,6 +854,9 @@ export default function VideoPlayer() {
           cursor: pointer;
           opacity: 0.7;
           transition: 0.2s;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
         .close-pdf-btn:hover { opacity: 1; transform: scale(1.1); color: var(--primary); }
         .pdf-container { 
